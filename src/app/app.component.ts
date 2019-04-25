@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {Book} from './shared/book';
 import {AuthService} from './shared/authentication.service';
 
 @Component({
@@ -16,6 +15,10 @@ export class AppComponent {
 
   isLoggedIn() {
       return this.authService.isLoggedIn();
+  }
+
+  isAdmin() {
+      return this.authService.isAdmin();
   }
 
   getLoginLabel() {

@@ -9,6 +9,7 @@ import {retry} from 'rxjs/operators';
 interface User {
     result: {
         created_at: Date,
+        isadmin: boolean,
         email: string,
         id: number,
         name: string,
@@ -45,7 +46,7 @@ export class AuthService {
         const decodedToken = decode(token);
         console.log(decodedToken);
         console.log(decodedToken.user.id);
-        //für hü isAdmin in localstorage mitspeichern
+        // localStorage.setItem('isadmin', );
         localStorage.setItem('token', token);
         localStorage.setItem('userId', decodedToken.user.id);
     }
@@ -57,9 +58,27 @@ export class AuthService {
         console.log("logged out");
     }
 
-    public isLoggedIn() {
-        return !isNullOrUndefined(localStorage.getItem("token"));
+    public isAdmin() {
+        /*this.http.get<User>(`${this.api}/user`).subscribe(res => {
+            console.log(res.result.isadmin.toString());
+        })*/
     }
+
+    public isLoggedIn() {
+        if(!isNullOrUndefined(localStorage.getItem("token"))){
+            let token : string  = localStorage.getItem("token");
+            const decodedToken = decode(token);
+            let expirationDate:Date = new Date(0);
+            expirationDate.setUTCSeconds(decodedToken.exp);
+            if(expirationDate < new Date()){
+                console.log("token expired");
+                localStorage.removeItem("token");
+                return false;
+            }
+            return true;
+        } else {
+            return false;
+        }    }
 
     isLoggedOut() {
         return !this.isLoggedIn();

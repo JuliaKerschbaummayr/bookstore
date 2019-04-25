@@ -5,6 +5,8 @@ import {BookListComponent} from './book-list/book-list.component';
 import {BookDetailsComponent} from './book-details/book-details.component';
 import {BookFormComponent} from './book-form/book-form.component';
 import {LoginComponent} from './login/login.component';
+import {CartComponent} from './cart/cart.component';
+import {OrdersComponent} from './orders/orders.component';
 
 const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -13,7 +15,9 @@ const routes: Routes = [
     {path: 'books/:isbn', component: BookDetailsComponent},
     {path:'admin', component: BookFormComponent}, //neu anlegen
     {path:'admin/:isbn', component: BookFormComponent}, //editieren
-    {path:'login', component: LoginComponent}
+    {path:'login', component: LoginComponent},
+    {path:'cart', component: CartComponent},
+    {path:'orders', component: OrdersComponent}
 ];
 
 @NgModule({
