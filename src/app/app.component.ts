@@ -17,8 +17,8 @@ export class AppComponent {
       return this.authService.isLoggedIn();
   }
 
-  isAdmin() {
-      return this.authService.isAdmin();
+  isAdmin(key) {
+      return (this.authService.isAdmin(key));
   }
 
   getLoginLabel() {

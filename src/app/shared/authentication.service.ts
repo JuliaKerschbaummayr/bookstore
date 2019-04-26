@@ -45,10 +45,19 @@ export class AuthService {
         console.log(token);
         const decodedToken = decode(token);
         console.log(decodedToken);
-        console.log(decodedToken.user.id);
-        // localStorage.setItem('isadmin', );
+        console.log('userid: ' + decodedToken.user.id);
+        console.log('isadmin: ' + decodedToken.user.isadmin);
+        localStorage.setItem('isadmin', decodedToken.user.isadmin);
         localStorage.setItem('token', token);
         localStorage.setItem('userId', decodedToken.user.id);
+    }
+
+    public isAdmin(key) {
+        if (localStorage.getItem(key) == "1") {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     logout() {
@@ -56,12 +65,6 @@ export class AuthService {
         localStorage.removeItem("token");
         localStorage.removeItem("userId");
         console.log("logged out");
-    }
-
-    public isAdmin() {
-        /*this.http.get<User>(`${this.api}/user`).subscribe(res => {
-            console.log(res.result.isadmin.toString());
-        })*/
     }
 
     public isLoggedIn() {
