@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Order} from '../shared/order';
+import {User} from '../shared/user';
 import {OrderFactory} from '../shared/order-factory';
 import {OrderService} from '../shared/order.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -12,6 +13,7 @@ import {AuthService} from '../shared/authentication.service';
 })
 export class OrderDetailComponent implements OnInit {
   order:Order = OrderFactory.empty();
+  user:User;
 
   constructor(
       private os: OrderService,
