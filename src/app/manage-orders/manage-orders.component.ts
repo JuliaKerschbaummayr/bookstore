@@ -3,11 +3,11 @@ import {Order} from '../shared/order';
 import {OrderService} from '../shared/order.service';
 
 @Component({
-  selector: 'bs-orders',
-  templateUrl: './orders.component.html',
+  selector: 'bs-manage-orders',
+  templateUrl: './manage-orders.component.html',
   styles: []
 })
-export class OrdersComponent implements OnInit {
+export class ManageOrdersComponent implements OnInit {
 
   orders: Order[];
 

@@ -19,6 +19,10 @@ import {TokenInterceptorService} from './shared/token-interceptor.service';
 import {JwtInterceptorService} from './shared/jwt-interceptor.service';
 import { CartComponent } from './cart/cart.component';
 import { OrdersComponent } from './orders/orders.component';
+import { ManageOrdersComponent } from './manage-orders/manage-orders.component';
+import { OrderListItemComponent } from './order-list-item/order-list-item.component';
+import {OrderService} from './shared/order.service';
+import { OrderDetailComponent } from './order-detail/order-detail.component';
 
 @NgModule({
   declarations: [
@@ -31,12 +35,15 @@ import { OrdersComponent } from './orders/orders.component';
     SearchComponent,
     LoginComponent,
     CartComponent,
-    OrdersComponent
+    OrdersComponent,
+    ManageOrdersComponent,
+    OrderListItemComponent,
+    OrderDetailComponent
   ],
   imports: [
     BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule, DateValueAccessorModule
   ],
-  providers: [BookStoreService, AuthService,
+  providers: [BookStoreService, AuthService, OrderService,
       {
         provide: HTTP_INTERCEPTORS,
         useClass: TokenInterceptorService,
