@@ -20,6 +20,10 @@ export class OrderService {
         return this.http.get(`${this.api}/order/${id}`).pipe(retry(3)).pipe(catchError(this.errorHandler));
     }
 
+    getAllOrders(): Observable<Array<Order>> {
+        return this.http.get(`${this.api}/manageorders`).pipe(retry(3)).pipe(catchError(this.errorHandler));
+    }
+
     private errorHandler(error: Error | any): Observable<any> {
         return throwError(error);
     }

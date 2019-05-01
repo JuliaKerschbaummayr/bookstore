@@ -15,5 +15,6 @@ export const BookFormErrorMessages = [
     new ErrorMessage('authors', 'required', 'Es muss ein Autor angegeben werden'),
     new ErrorMessage('rating', 'min', 'Bewertung kann nur positive Werte annehmen'),
     new ErrorMessage('rating', 'max', 'Maximal 10 Sterne erlaubt'),
-    new ErrorMessage('images', 'atLeastOneImage', 'Es muss ein Bild (mit URL und Titel) angegeben werden')
+    new ErrorMessage('images', 'atLeastOneImage', 'Es muss ein Bild (mit URL und Titel) angegeben werden'),
+    new ErrorMessage('authors', 'atLeastOneAuthor', 'Es muss ein Autor angegeben werden')
 ];

@@ -21,5 +21,10 @@ export class BookValidators {
         return check ? null : {atLeastOneImage: {valid: false}};
     }
 
-    //für mehr validatoren neues static anlegen
+    static atLeastOneAuthor(controlArray : FormArray) : {[error:string]:any} {
+        const check = controlArray.controls.some((el)=> {
+            return el.value && el.value.firstName != "" && el.value.lastName != null;
+        });
+        return check ? null : {atLeastOneAuthor: {valid: false}};
+    }
 }

@@ -14,7 +14,7 @@ export class ManageOrdersComponent implements OnInit {
   constructor(private os: OrderService) { }
 
   ngOnInit() {
-      this.os.getAll().subscribe(res => this.orders = res);
+      this.os.getAllOrders().subscribe(res => this.orders = res);
   }
 
 }

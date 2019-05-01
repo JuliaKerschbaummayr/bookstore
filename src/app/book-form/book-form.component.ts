@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { BookFormErrorMessages } from './book-form-error-messages';
 import {BookFactory} from "../shared/book-factory";
 import {BookStoreService} from "../shared/book-store.service";
-import {Book, Image} from "../shared/book";
+import {Book} from "../shared/book";
 import {BookValidators} from '../shared/book-validators';
 
 @Component({
@@ -18,6 +18,7 @@ export class BookFormComponent implements OnInit {
     errors: { [key: string]: string } = {};
     isUpdatingBook = false;
     images: FormArray;
+    authors: FormArray;
 
     constructor(private fb: FormBuilder, private bs: BookStoreService,
                 private route: ActivatedRoute, private router: Router) { }
@@ -36,8 +37,8 @@ export class BookFormComponent implements OnInit {
 
     initBook() {
         this.buildThumbnailsArray();
+        this.buildAuthorsArray();
 
-        //Preis hinzufügen --> Model anpassen, formControlName price hinzufügen, Zeile Preis hinzufügen
         this.bookForm = this.fb.group({
             id: this.book.id,
             title: [this.book.title, Validators.required],
@@ -54,7 +55,7 @@ export class BookFormComponent implements OnInit {
                 Validators.min(0),
                 Validators.max(10)
             ]],
-            // authors: this.authors,
+            authors: this.authors,
             price: this.book.price,
             images: this.images,
             published: new Date(this.book.published)
@@ -64,9 +65,6 @@ export class BookFormComponent implements OnInit {
 
     buildThumbnailsArray() {
         console.log(this.book.images);
-        /*if(this.book.images.length == 0){ //if new book had no images -> but no in edit mode
-            this.book.images.push(new Image(0,'',''))
-        }*/
         this.images = this.fb.array(
             this.book.images.map(
                 t => this.fb.group({
@@ -87,9 +85,31 @@ export class BookFormComponent implements OnInit {
         this.images.removeAt(index);
     }
 
+    buildAuthorsArray() {
+        console.log(this.book.authors);
+        this.authors = this.fb.array(
+            this.book.authors.map(
+                t => this.fb.group({
+                    firstName: this.fb.control(t.firstName),
+                    lastName: this.fb.control(t.lastName),
+                })
+            ), BookValidators.atLeastOneAuthor
+        );
+        console.log(this.authors);
+    }
+
+    addAuthorControl() {
+        this.authors.push(this.fb.group({ firstName: null, lastName: null }));
+    }
+
+    removeAuthorControl(index) {
+        this.authors.removeAt(index);
+    }
+
     submitForm() {
         // filter empty values
         this.bookForm.value.images = this.bookForm.value.images.filter(thumbnail => thumbnail.url);
+        this.bookForm.value.authors = this.bookForm.value.authors.filter(author => author.lastName);
 
         const book: Book = BookFactory.fromObject(this.bookForm.value);
 //deep copy  - did not work without??
@@ -97,7 +117,8 @@ export class BookFormComponent implements OnInit {
         console.log(book);
 
         //just copy the authors
-        book.authors = this.book.authors;
+        // book.authors = this.book.authors;
+        book.authors = this.bookForm.value.authors;
 
         if (this.isUpdatingBook) {
             this.bs.update(book).subscribe(res => {
@@ -105,7 +126,7 @@ export class BookFormComponent implements OnInit {
             });
         } else {
             book.user_id = 1;// jsut for testing
-            console.log(book)
+            console.log(book);
             this.bs.create(book).subscribe(res => {
                 this.book = BookFactory.empty();
                 this.bookForm.reset(BookFactory.empty());

@@ -2,7 +2,7 @@
   <h1 class="ui header">Meine Bestellungen</h1>
   <a class="bs-order-list-item item"
      *ngFor="let order of orders" [order]="order"
-     [routerLink]="order.id"
+     [routerLink]="['/order/', order.id]"
   >
   </a>
 </div>

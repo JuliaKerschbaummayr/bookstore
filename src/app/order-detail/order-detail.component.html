@@ -4,12 +4,12 @@
     <h4 class="ui header">Bestelldatum: {{order.orderDate | date:'dd.MM.yyyy'}}</h4>
   </div>
 
-  <!--<div class="seven wide column">
+  <div class="seven wide column">
     <h4 class="ui header">Adresse:</h4>
     <div class="ui list">
-      <div class="item">{{order.user['firstname']}}</div>
+      <div class="item">{{ order.}}</div>
     </div>
-  </div>-->
+  </div>
 
   <div class="four wide column">
     <h4 class="ui header">Preis:</h4>
@@ -30,10 +30,11 @@
         <th>Buchtitel</th>
         <th>Autor</th>
         <th>Preis</th>
+        <th>Menge</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let book of order.books; last as l">
+      <tr *ngFor="let book of order.books">
         <td data-label="Cover"><img class="ui tiny image" *ngIf="book.images && book.images[0]"
                                     [src]="book.images[0].url"></td>
         <td data-label="Buchtitel">{{ book.title }}</td>
@@ -43,6 +44,10 @@
             <span *ngIf="!l">, </span></span>
         </td>
         <td data-label="Preis">{{ (book.price*1).toFixed(2) }}€</td>
+        <td data-label="Menge">
+          <span>
+         {{ book.amount }}</span>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -58,7 +63,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let status of order.statuses; last as l">
+    <tr *ngFor="let status of order.statuses">
       <td data-label="Datum">{{ status.changeDate | date:'dd.MM.yyyy' }}</td>
       <td data-label="Status">{{ status.status }}</td>
     </tr>
