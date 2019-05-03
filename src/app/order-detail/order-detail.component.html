@@ -7,10 +7,10 @@
   <div class="seven wide column">
     <h4 class="ui header">Adresse:</h4>
     <div class="ui list">
-      <div class="item">{{ order.user.firstname }} {{ order.user.lastname }}</div>
-      <div class="item">{{ order.user.street }} {{ order.user.street_number }}</div>
-      <div class="item">{{ order.user.zip }} {{ order.user.city }}</div>
-      <div class="item">{{ order.user.country }}</div>
+      <div class="item">{{ order.user?.firstname }} {{ order.user?.lastname }}</div>
+      <div class="item">{{ order.user?.street }} {{ order.user?.street_number }}</div>
+      <div class="item">{{ order.user?.zip }} {{ order.user?.city }}</div>
+      <div class="item">{{ order.user?.country }}</div>
     </div>
   </div>
 

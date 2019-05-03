@@ -13,7 +13,6 @@ import {AuthService} from '../shared/authentication.service';
 
 export class BookDetailsComponent implements OnInit {
   book:Book = BookFactory.empty();
-  // @Output() showListEvent = new EventEmitter<any>();
 
   constructor(
       private bs: BookStoreService,
@@ -21,10 +20,6 @@ export class BookDetailsComponent implements OnInit {
       private router: Router,
       public authService: AuthService
   ) { }
-
-  /*showBookList() {
-      this.showListEvent.emit();
-  }*/
 
   ngOnInit() {
     const params = this.route.snapshot.params;
@@ -44,9 +39,8 @@ export class BookDetailsComponent implements OnInit {
   }
 
   buyBook() {
-    let bookincart = [this.book.images, this.book.isbn, this.book.title, this.book.description, this.book.price];
+    let bookincart = [this.book.images, this.book.isbn, this.book.title, this.book.description, this.book.price, this.book.authors];
     localStorage.setItem('bookincart', JSON.stringify(bookincart));
-    console.log(localStorage.getItem('bookincart'));
   }
 
 }

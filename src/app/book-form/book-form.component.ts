@@ -90,6 +90,7 @@ export class BookFormComponent implements OnInit {
         this.authors = this.fb.array(
             this.book.authors.map(
                 t => this.fb.group({
+                    id: this.fb.control(t.id),
                     firstName: this.fb.control(t.firstName),
                     lastName: this.fb.control(t.lastName),
                 })
@@ -125,7 +126,7 @@ export class BookFormComponent implements OnInit {
                 this.router.navigate(['../../books', book.isbn], { relativeTo: this.route });
             });
         } else {
-            book.user_id = 1;// jsut for testing
+            book.user_id = Number(localStorage.getItem('userId'));
             console.log(book);
             this.bs.create(book).subscribe(res => {
                 this.book = BookFactory.empty();

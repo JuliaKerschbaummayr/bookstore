@@ -24,7 +24,7 @@
       </div>
       <div class="three wide column">
         <h4 class="ui header">Erschienen</h4>
-        {{ book.published }}
+        {{ book.published | date:'dd.MM.yyyy' }}
       </div>
       <div class="three wide column">
         <h4 class="ui header">Rating</h4>

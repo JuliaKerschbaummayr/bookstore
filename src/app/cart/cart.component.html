@@ -1,6 +1,49 @@
+<h1 class="ui header">Warenkorb</h1>
 <div class="ui grid">
-  {{ bookincartdata.isbn }}
+  <table class="ui celled table">
+    <thead>
+    <tr>
+      <th>Cover</th>
+      <th>Buchtitel</th>
+      <th>Autor</th>
+      <th>Preis pro Stück</th>
+      <th>Preis</th>
+      <th>Menge</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr >
+      <td data-label="Cover">
+        <img class="ui tiny image" [src]="getBookArray(0, 0, 'url')">
+      </td>
+      <td data-label="Buchtitel">{{ getBook(2) }}</td>
+      <td data-label="Autor">
+          <span *ngFor="let a of getBook(5); let i = index; last as l">
+         {{ getBookArray(5, i, 'firstName') }} {{ getBookArray(5, i, 'lastName') }}<span *ngIf="!l">, </span>
+          </span>
+      </td>
+      <td data-label="Preis">{{ (getBook(4)*1).toFixed(2) }}€</td>
+      <td data-label="PreisGes">{{ (getBook(4)*this.count).toFixed(2) }}€</td>
+      <td data-label="Menge">
+        <button class="ui left attached button" (click)="minus()">-</button>
+        <button class="ui disabled button" id="count">1</button>
+        <button class="right attached ui button" (click)="plus()">+</button>
+      </td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr><th>Gesamtpreis:</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>{{ (getBook(4)*this.count).toFixed(2) }}€</th>
+      <th></th>
+    </tr></tfoot>
+  </table>
 </div>
 
-<button [routerLink]="'/books'" class="ui red button">Zurück zur Buchliste</button>
+<div class="ui grid">
+  <button [routerLink]="'/books'" class="ui red button">Zurück zur Buchliste</button>
 
+  <button class="ui red button" (click)="buy()">Kaufen</button>
+</div>

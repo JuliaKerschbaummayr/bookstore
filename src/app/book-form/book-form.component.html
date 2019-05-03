@@ -36,7 +36,7 @@
   <div class="field">
     <label>Autor(en)</label>
     <div formArrayName="authors">
-      <div class="fields" *ngFor="let control of authors?.controls; last as l" [formGroupName]="a">
+      <div class="fields" *ngFor="let control of authors?.controls; index as a; last as l" [formGroupName]="a">
         <input type="hidden" name="id">
         <div class="nine wide field">
           <input formControlName="firstName" placeholder="Vorname">

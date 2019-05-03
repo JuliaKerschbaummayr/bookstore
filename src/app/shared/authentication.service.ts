@@ -62,6 +62,7 @@ export class AuthService {
 
     logout() {
         this.http.post(`${this.api}/logout`, {});
+        localStorage.removeItem("isadmin");
         localStorage.removeItem("token");
         localStorage.removeItem("userId");
         console.log("logged out");
@@ -84,6 +85,7 @@ export class AuthService {
         }    }
 
     isLoggedOut() {
+        localStorage.removeItem("isadmin");
         return !this.isLoggedIn();
     }
 
