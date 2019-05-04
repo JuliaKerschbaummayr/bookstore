@@ -1,18 +1,18 @@
 <h1 class="ui header">Warenkorb</h1>
-<div class="ui grid"  *ngIf="cart">
+<div class="ui grid">
   <table class="ui celled table">
     <thead>
     <tr>
-      <th>Cover</th>
-      <th>Buchtitel</th>
-      <th>Autor</th>
-      <th>Preis pro Stück</th>
-      <th>Preis</th>
-      <th>Menge</th>
+      <th class="two wide">Cover</th>
+      <th class="four wide">Buchtitel</th>
+      <th class="two wide">Autor</th>
+      <th class="two wide">Preis pro Stück</th>
+      <th class="two wide">Preis</th>
+      <th class="four wide">Menge</th>
     </tr>
     </thead>
-    <tbody>
-    <tr *ngFor="let cartitem of cart; let item = index">
+    <tbody *ngIf="cart">
+    <tr *ngFor="let cartitem of cart; let item = index" id="book {{ item }}">
       <td data-label="Cover">
         <img class="ui tiny image" [src]="getBookArray(item, 0, 0, 'url')">
       </td>
@@ -23,12 +23,12 @@
           </span>
       </td>
       <td data-label="Preis">{{ (getBook(item, 4)*1).toFixed(2) }}€</td>
-      <td data-label="PreisGes">{{ (getBook(item, 4)*this.count).toFixed(2) }}€</td>
+      <td data-label="PreisGes" id="bookPrice {{ item }}">{{ (getBook(item, 4)*1).toFixed(2) }}€</td>
       <td data-label="Menge">
-        <button class="ui left attached button" (click)="minus()">-</button>
-        <button class="ui disabled button" id="count">1</button>
-        <button class="right attached ui button" (click)="plus()">+</button>
-        <button class="ui button" (click)="delete()">Löschen</button>
+        <button class="ui left attached button" (click)="minus(item)">-</button>
+        <button class="ui disabled button" id="count {{ item }}">1</button>
+        <button class="right attached ui button" (click)="plus(item)">+</button>
+        <button class="ui right floated button" id="delete" (click)="delete(item)">Löschen</button>
       </td>
     </tr>
     </tbody>
@@ -37,7 +37,7 @@
       <th></th>
       <th></th>
       <th></th>
-      <!--<th>{{ (getBook(item, 4)*this.count).toFixed(2) }}€</th>-->
+      <th id="totalPrice">0€</th>
       <th></th>
     </tr></tfoot>
   </table>
