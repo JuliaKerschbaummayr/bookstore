@@ -23,6 +23,8 @@ import { ManageOrdersComponent } from './manage-orders/manage-orders.component';
 import { OrderListItemComponent } from './order-list-item/order-list-item.component';
 import {OrderService} from './shared/order.service';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
+import { ManageOrdersListItemComponent } from './manage-orders-list-item/manage-orders-list-item.component';
+import { ManageOrderDetailComponent } from './manage-order-detail/manage-order-detail.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { OrderDetailComponent } from './order-detail/order-detail.component';
     OrdersComponent,
     ManageOrdersComponent,
     OrderListItemComponent,
-    OrderDetailComponent
+    OrderDetailComponent,
+    ManageOrdersListItemComponent,
+    ManageOrderDetailComponent
   ],
   imports: [
     BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule, DateValueAccessorModule

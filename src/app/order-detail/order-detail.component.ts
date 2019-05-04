@@ -3,7 +3,7 @@ import {Order} from '../shared/order';
 import {User} from '../shared/user';
 import {OrderFactory} from '../shared/order-factory';
 import {OrderService} from '../shared/order.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {AuthService} from '../shared/authentication.service';
 
 @Component({
@@ -16,10 +16,9 @@ export class OrderDetailComponent implements OnInit {
   user:User;
 
   constructor(
-      private os: OrderService,
-      private route: ActivatedRoute,
-      private router: Router,
-      public authService: AuthService
+    private os: OrderService,
+    private route: ActivatedRoute,
+    public authService: AuthService
   ) { }
 
   ngOnInit() {

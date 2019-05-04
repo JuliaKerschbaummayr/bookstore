@@ -44,11 +44,7 @@ export class BookFormComponent implements OnInit {
             title: [this.book.title, Validators.required],
             subtitle: this.book.subtitle,
             isbn: [this.book.isbn, [
-                Validators.required,
-                /*Validators.minLength(10),
-                Validators.maxLength(13)*/
-                //eigener Validator
-                BookValidators.isbnFormat
+                Validators.required, BookValidators.isbnFormat
             ]],
             description: this.book.description,
             rating: [this.book.rating,[

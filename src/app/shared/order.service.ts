@@ -3,6 +3,7 @@ import {catchError, retry} from 'rxjs/internal/operators';
 import {Observable, throwError} from 'rxjs';
 import {Order} from './order';
 import {HttpClient} from '@angular/common/http';
+import {Status} from './status';
 
 @Injectable()
 export class OrderService {
@@ -22,6 +23,10 @@ export class OrderService {
 
     getAllOrders(): Observable<Array<Order>> {
         return this.http.get(`${this.api}/manageorders`).pipe(retry(3)).pipe(catchError(this.errorHandler));
+    }
+
+    create(status:Status) : Observable<any> {
+        return this.http.post(`${this.api}/manageorders`, status).pipe(retry(3)).pipe(catchError(this.errorHandler));
     }
 
     private errorHandler(error: Error | any): Observable<any> {

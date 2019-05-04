@@ -60,12 +60,14 @@
     <tr>
       <th>Datum</th>
       <th>Status</th>
+      <th>Anmerkung</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let status of order.statuses">
       <td data-label="Datum">{{ status.changeDate | date:'dd.MM.yyyy' }}</td>
       <td data-label="Status">{{ status.status }}</td>
+      <td data-label="Status">{{ status.comment }}</td>
     </tr>
     </tbody>
   </table>

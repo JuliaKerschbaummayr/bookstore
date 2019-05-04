@@ -8,7 +8,6 @@ import {OrderService} from '../shared/order.service';
   styles: []
 })
 export class ManageOrdersComponent implements OnInit {
-
   orders: Order[];
 
   constructor(private os: OrderService) { }
