@@ -1,0 +1,8 @@
+<div class="content">
+  <div class="header">Bestellung Nummer {{ order.id }}</div>
+  <div class="user">User {{ order.user_id }}</div>
+  <!--<div class="status">Aktueller Status: {{ status.status }}</div>-->
+  <div class="price">Gesamtpreis: {{ (order.price*1).toFixed(2) }}€</div>
+  <div class="date">Bestelldatum: {{ order.orderDate | date:'dd.MM.yyyy' }}</div>
+</div>
+

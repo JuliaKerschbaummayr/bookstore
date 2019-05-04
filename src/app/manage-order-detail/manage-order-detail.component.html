@@ -1,0 +1,92 @@
+<h1 class="ui header">Bestellung Nummer {{ order.id }}</h1>
+<div class="ui grid">
+  <div class="four wide column">
+    <h4 class="ui header">Bestelldatum: {{ order.orderDate | date:'dd.MM.yyyy' }}</h4>
+    <h4 class="ui header">User: {{ order.user_id }}</h4>
+  </div>
+
+  <div class="seven wide column">
+    <h4 class="ui header">Adresse:</h4>
+    <div class="ui list">
+      <div class="item">{{ order.user?.firstname }} {{ order.user?.lastname }}</div>
+      <div class="item">{{ order.user?.street }} {{ order.user?.street_number }}</div>
+      <div class="item">{{ order.user?.zip }} {{ order.user?.city }}</div>
+      <div class="item">{{ order.user?.country }}</div>
+    </div>
+  </div>
+
+  <div class="four wide column">
+    <h4 class="ui header">Preis:</h4>
+    <div class="ui list">
+      <div class="item">Netto-Preis: {{(order.price*0.9).toFixed(2)}}€</div>
+      <div class="item">Steuern: {{(order.price*0.1).toFixed(2)}}€</div>
+      <div class="item"><b>Brutto-Preis: {{(order.price*1).toFixed(2)}}€</b></div>
+    </div>
+  </div>
+</div>
+
+<h3 class="ui header">Bücher: </h3><br/>
+<div class="ui grid">
+  <table class="ui celled table">
+    <thead>
+    <tr>
+      <th>Cover</th>
+      <th>Buchtitel</th>
+      <th>Autor</th>
+      <th>Preis</th>
+      <th>Menge</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let book of order.books">
+      <td data-label="Cover"><img class="ui tiny image" *ngIf="book.images && book.images[0]"
+                                  [src]="book.images[0].url"></td>
+      <td data-label="Buchtitel">{{ book.title }}</td>
+      <td data-label="Autor">
+          <span *ngFor="let author of book.authors; last as l">
+         {{ author.firstName }} {{ author.lastName }}
+            <span *ngIf="!l">, </span></span>
+      </td>
+      <td data-label="Preis">{{ (book.price*1).toFixed(2) }}€</td>
+      <td data-label="Menge">{{ book.pivot.amount }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<h3 class="ui header">Statusverlauf: </h3><br/>
+<div class="ui grid">
+  <table class="ui celled table">
+    <thead>
+    <tr>
+      <th>Datum</th>
+      <th>Status</th>
+      <th>Anmerkung</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let status of order.statuses">
+      <td data-label="Datum">{{ status.changeDate | date:'dd.MM.yyyy' }}</td>
+      <td data-label="Status">{{ status.status }}</td>
+      <td data-label="Status">{{ status.comment }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<h3 class="ui header">Neuer Status: </h3><br/>
+<div class="ui grid">
+  <form  class="ui large form" [formGroup]="statusForm" (ngSubmit)="submitForm()">
+    <div class="field">
+      <label>Status</label>
+      <input formControlName="status">
+      <div *ngIf="errors.status" class="ui negative message"> {{ errors.status }} </div>
+    </div>
+    <div class="field">
+      <label>Anmerkung</label>
+      <input formControlName="comment">
+    </div>
+    <button type="submit" class="ui button" [disabled]="statusForm.invalid">Hinzufügen</button>
+  </form>
+</div>
+
