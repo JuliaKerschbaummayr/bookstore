@@ -1,5 +1,5 @@
 <h1 class="ui header">Warenkorb</h1>
-<div class="ui grid">
+<div class="ui grid"  *ngIf="cart">
   <table class="ui celled table">
     <thead>
     <tr>
@@ -12,22 +12,23 @@
     </tr>
     </thead>
     <tbody>
-    <tr >
+    <tr *ngFor="let cartitem of cart; let item = index">
       <td data-label="Cover">
-        <img class="ui tiny image" [src]="getBookArray(0, 0, 'url')">
+        <img class="ui tiny image" [src]="getBookArray(item, 0, 0, 'url')">
       </td>
-      <td data-label="Buchtitel">{{ getBook(2) }}</td>
+      <td data-label="Buchtitel">{{ getBook(item, 2) }}</td>
       <td data-label="Autor">
-          <span *ngFor="let a of getBook(5); let i = index; last as l">
-         {{ getBookArray(5, i, 'firstName') }} {{ getBookArray(5, i, 'lastName') }}<span *ngIf="!l">, </span>
+          <span *ngFor="let a of getBook(item, 5); let i = index; last as l">
+         {{ getBookArray(item, 5, i, 'firstName') }} {{ getBookArray(item, 5, i, 'lastName') }}<span *ngIf="!l">, </span>
           </span>
       </td>
-      <td data-label="Preis">{{ (getBook(4)*1).toFixed(2) }}€</td>
-      <td data-label="PreisGes">{{ (getBook(4)*this.count).toFixed(2) }}€</td>
+      <td data-label="Preis">{{ (getBook(item, 4)*1).toFixed(2) }}€</td>
+      <td data-label="PreisGes">{{ (getBook(item, 4)*this.count).toFixed(2) }}€</td>
       <td data-label="Menge">
         <button class="ui left attached button" (click)="minus()">-</button>
         <button class="ui disabled button" id="count">1</button>
         <button class="right attached ui button" (click)="plus()">+</button>
+        <button class="ui button" (click)="delete()">Löschen</button>
       </td>
     </tr>
     </tbody>
@@ -36,7 +37,7 @@
       <th></th>
       <th></th>
       <th></th>
-      <th>{{ (getBook(4)*this.count).toFixed(2) }}€</th>
+      <!--<th>{{ (getBook(item, 4)*this.count).toFixed(2) }}€</th>-->
       <th></th>
     </tr></tfoot>
   </table>

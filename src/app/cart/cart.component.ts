@@ -7,20 +7,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartComponent implements OnInit {
   public count = 1;
+  public cart : Array<any> = [];
 
   constructor() { }
 
   ngOnInit() {
+    if (localStorage.getItem('bookincart')) {
+      let bookincartdata : Array<any> = JSON.parse(localStorage.getItem('bookincart'));
+      this.cart.push(bookincartdata);
+      console.log(this.cart);
+    }
   }
 
-  getBook(key) {
-    let bookincartdata = JSON.parse(localStorage.getItem('bookincart'));
-    return bookincartdata[key];
+  getBook(item, key) {
+    return this.cart[item][key];
   }
 
-  getBookArray(key, sum, inner) {
-    let bookincartarray = JSON.parse(localStorage.getItem('bookincart'));
-    return bookincartarray[key][sum][inner];
+  getBookArray(item, key, sum, inner) {
+    return this.cart[item][key][sum][inner];
   }
 
   plus() {
