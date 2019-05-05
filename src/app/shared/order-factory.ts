@@ -3,7 +3,7 @@ import {Order} from './order';
 export class OrderFactory {
 
     static empty(): Order {
-        return new Order(null, 0, new Date(), null);
+        return new Order(null, 0, new Date(), null, []);
     }
 
     static fromObject(rawOrder: any): Order {
@@ -13,6 +13,7 @@ export class OrderFactory {
             typeof(rawOrder.orderDate) === 'string' ?
                 new Date(rawOrder.orderDate) : rawOrder.orderDate,
             rawOrder.price,
+            rawOrder.items,
         );
     }
 }

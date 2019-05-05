@@ -30,7 +30,7 @@
         <button class="right attached ui button" (click)="plus(item)">+</button>
         <button class="ui right floated button" id="delete" (click)="delete(item)">Löschen</button>
       </td>
-      {{ setCounter(item) }}
+      {{ setPrices(item) }}
     </tr>
     </tbody>
     <tfoot>
@@ -49,5 +49,5 @@
 <div class="ui grid">
   <button [routerLink]="'/books'" class="ui red button">Zurück zur Buchliste</button>
 
-  <button class="ui red button" (click)="buy()">Kaufen</button>
+  <button class="ui red button" (click)="saveOrder()">Kaufen</button>
 </div>

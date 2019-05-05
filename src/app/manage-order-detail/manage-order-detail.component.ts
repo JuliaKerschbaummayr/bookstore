@@ -5,7 +5,7 @@ import {User} from '../shared/user';
 import {OrderService} from '../shared/order.service';
 import {AuthService} from '../shared/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {StatusValidator} from '../shared/status-validator';
 import {ManageOrderDetailErrorMessages} from './manage-order-detail-error-messages';
 import {StatusFactory} from '../shared/status-factory';

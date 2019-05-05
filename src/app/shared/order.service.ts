@@ -29,6 +29,10 @@ export class OrderService {
         return this.http.post(`${this.api}/manageorders`, status).pipe(retry(3)).pipe(catchError(this.errorHandler));
     }
 
+    createOrder(order:Order) : Observable<any> {
+        return this.http.post(`${this.api}/orders`, order).pipe(retry(3)).pipe(catchError(this.errorHandler));
+    }
+
     private errorHandler(error: Error | any): Observable<any> {
         return throwError(error);
     }
