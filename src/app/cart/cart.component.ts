@@ -33,7 +33,6 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
     const params = this.route.snapshot.params;
-    // this.os.getSingle(params['id']).subscribe(o => this.order = o);
 
     for (let i = 0; i < localStorage.length; i++) {
       let key = localStorage.key(i);
@@ -127,29 +126,26 @@ export class CartComponent implements OnInit {
   saveOrder(){
     if(this.cart.length > 0) {
       if (localStorage.getItem('userId')) {
-          this.calculatePrice();
-          for (let i = 0; i < this.cart.length; i++) {
-              // let item = JSON.parse(this.cart[i]);
-              this.cartItems.push({
-                  book: this.cart[i],
-                  amount: Number(localStorage.getItem('counter' + i)),
-              });
-          }
+        this.calculatePrice();
+        for (let i = 0; i < this.cart.length; i++) {
+            this.cartItems.push({
+                book: this.cart[i],
+                amount: Number(localStorage.getItem('counter' + i)),
+            });
+        }
 
-          this.order.user_id = JSON.parse(localStorage.getItem('userId'));
-          this.order.orderDate = new Date(this.order.orderDate);
-          this.order.price = this.totalPrice;
-          this.order.items = this.cartItems;
+        this.order.user_id = JSON.parse(localStorage.getItem('userId'));
+        this.order.orderDate = new Date(this.order.orderDate);
+        this.order.price = this.totalPrice;
+        this.order.items = this.cartItems;
 
-          console.log(this.order);
-
-          this.os.createOrder(this.order).subscribe(res =>
-          {
-              this.order = OrderFactory.empty();
-              this.router.navigate(['../orders'], { relativeTo: this.route });
-          });
+        this.os.createOrder(this.order).subscribe(res =>
+        {
+            this.order = OrderFactory.empty();
+            this.router.navigate(['../orders'], { relativeTo: this.route });
+        });
       } else {
-          this.router.navigate(['../login'], { relativeTo: this.route });
+        this.router.navigate(['../login'], { relativeTo: this.route });
       }
     }
   }

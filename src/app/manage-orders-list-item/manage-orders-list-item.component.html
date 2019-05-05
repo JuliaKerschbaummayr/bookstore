@@ -1,7 +1,6 @@
 <div class="content">
   <div class="header">Bestellung Nummer {{ order.id }}</div>
   <div class="user">User {{ order.user_id }}</div>
-  <!--<div class="status">Aktueller Status: {{ order.statuses }}</div>-->
   <div *ngFor="let s of order.statuses last as l" >
     <span *ngIf="l">Aktueller Status: {{s.status}}</span>
   </div>
