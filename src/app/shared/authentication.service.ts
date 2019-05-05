@@ -4,8 +4,6 @@ import {HttpClient} from "@angular/common/http";
 import * as decode from 'jwt-decode';
 import {retry} from 'rxjs/operators';
 
-//npm install --save-dev jwt-decode
-
 interface User {
     result: {
         created_at: Date,
@@ -81,11 +79,13 @@ export class AuthService {
             }
             return true;
         } else {
+            localStorage.removeItem("isadmin");
+            localStorage.removeItem("userId");
             return false;
-        }    }
+        }
+    }
 
     isLoggedOut() {
-        localStorage.removeItem("isadmin");
         return !this.isLoggedIn();
     }
 

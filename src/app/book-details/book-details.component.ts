@@ -40,7 +40,6 @@ export class BookDetailsComponent implements OnInit {
 
   buyBook() {
     let bookincart = [this.book.images, this.book.isbn, this.book.title, this.book.description, this.book.price, this.book.authors];
-    // localStorage.setItem('bookincart', JSON.stringify(bookincart));
     localStorage.setItem('bookincart' + this.book.isbn, JSON.stringify(bookincart));
   }
 

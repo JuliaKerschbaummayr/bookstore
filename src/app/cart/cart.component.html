@@ -30,16 +30,19 @@
         <button class="right attached ui button" (click)="plus(item)">+</button>
         <button class="ui right floated button" id="delete" (click)="delete(item)">Löschen</button>
       </td>
+      {{ setCounter(item) }}
     </tr>
     </tbody>
     <tfoot>
-    <tr><th>Gesamtpreis:</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th id="totalPrice">0€</th>
-      <th></th>
-    </tr></tfoot>
+      <tr>
+        <th>Gesamtpreis:</th>
+        <th></th>
+        <th></th>
+        <th><button class="ui button" (click)="calculatePrice()">Preis berechnen</button></th>
+        <th id="totalPrice"></th>
+        <th></th>
+      </tr>
+    </tfoot>
   </table>
 </div>
 

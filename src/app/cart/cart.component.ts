@@ -9,9 +9,9 @@ import {count} from 'rxjs/internal/operators';
 export class CartComponent implements OnInit {
   public cart : Array<any> = [];
 
-  public count : number = 1;
   public bookPrice : number = 0;
   public totalPrice : number = 0;
+  public isbn : string;
 
   constructor() { }
 
@@ -20,16 +20,11 @@ export class CartComponent implements OnInit {
       let key = localStorage.key(i);
       if (key.slice(0,10) === "bookincart") {
         this.cart.push(JSON.parse(localStorage.getItem(key)));
-        this.setPrices(i);
+        // this.totalPrice += this.bookPrice;
+        // document.getElementById("totalPrice").innerHTML = this.totalPrice.toFixed(2) + "€";
+        // this.isbn = key.slice(10);
       }
     }
-
-    /*if (localStorage.getItem('bookincart')) {
-      let bookincartdata : Array<any> = JSON.parse(localStorage.getItem('bookincart'));
-      this.cart.push(bookincartdata);
-      localStorage.setItem('bookincart', JSON.stringify(this.cart));
-      console.log(this.cart);
-    }*/
   }
 
   getBook(item, key) {
@@ -41,52 +36,80 @@ export class CartComponent implements OnInit {
   }
 
   plus(item) {
-    this.count++;
-    document.getElementById("count " + item).innerHTML = this.count.toString();
-    let countHTML = document.getElementById("count " + item).innerHTML;
-    this.totalPrice += this.getBook(item, 4);
+    let countHTML = Number(document.getElementById("count " + item).innerHTML);
+    countHTML++;
+    // this.totalPrice += this.getBook(item, 4);
     this.getBookPrice(item, countHTML);
     localStorage.setItem('counter' + item, JSON.stringify(countHTML));
+    document.getElementById("count " + item).innerHTML = countHTML.toString();
+    this.setPrices(item);
   }
 
   minus(item) {
-    if (this.count > 1) {
-      this.count--;
-      document.getElementById("count " + item).innerHTML = this.count.toString();
-      let countHTML = document.getElementById("count " + item).innerHTML;
-      this.totalPrice -= this.getBook(item, 4);
-      localStorage.setItem('counter' + item, JSON.stringify(countHTML));
+    let countHTML = Number(document.getElementById("count " + item).innerHTML);
+    if (countHTML > 1) {
+      countHTML--;
+      // this.totalPrice -= this.getBook(item, 4);
       this.getBookPrice(item, countHTML);
+      localStorage.setItem('counter' + item, JSON.stringify(countHTML));
+      document.getElementById("count " + item).innerHTML = countHTML.toString();
+      this.setPrices(item);
     }
   }
 
   delete(item) {
-    let amount = document.getElementById("count " + item).innerHTML;
-    this.totalPrice -= (Number(this.getBook(item, 4))* Number(amount));
+    let countHTML = Number(document.getElementById("count " + item).innerHTML);
+    // this.totalPrice -= (Number(this.getBook(item, 4))* Number(countHTML));
     document.getElementById("totalPrice").innerHTML = this.totalPrice.toFixed(2) + "€";
     document.getElementById("book " + item).remove();
     localStorage.removeItem('bookincart' + this.cart[item][1]);
     localStorage.removeItem('counter' + item);
+    localStorage.removeItem('price' + item);
   }
 
   getBookPrice(item, count) {
     this.bookPrice = (Number(this.cart[item][4])) * (Number(count));
+    // document.getElementById("totalPrice").innerHTML = this.totalPrice.toFixed(2) + "€";
     document.getElementById("bookPrice " + item).innerHTML = this.bookPrice.toFixed(2) + "€";
-    document.getElementById("totalPrice").innerHTML = this.totalPrice.toFixed(2) + "€";
+    // localStorage.setItem('price' + item, JSON.stringify(this.bookPrice));
   }
 
-  setPrices(i) {
-    if (localStorage.getItem('counter' + i)) {
-      /*this.bookPrice = this.cart[i][4] * JSON.parse(localStorage.getItem('counter' + i));
-      document.getElementById("bookPrice " + i).innerHTML = this.bookPrice.toFixed(2) + "€";*/
-      this.totalPrice += (this.cart[i][4]) * JSON.parse(localStorage.getItem('counter' + i));
-      document.getElementById("totalPrice").innerHTML = this.totalPrice.toFixed(2) + "€";
-    } else {
-      /*this.bookPrice = this.cart[i][4];
-      document.getElementById("bookPrice " + i).innerHTML = this.bookPrice.toFixed(2) + "€";*/
-      this.totalPrice += this.cart[i][4];
-      document.getElementById("totalPrice").innerHTML = this.totalPrice.toFixed(2) + "€";
+  setCounter(item) {
+      this.setPrices(item);
+  }
+
+  setPrices(item) {
+    //if amount is set for book
+    if (localStorage.getItem('counter' + item)) {
+      let counter = localStorage.getItem('counter' + item);
+      document.getElementById("count " + item).innerHTML = counter;
+      //set price for book
+      this.bookPrice = this.cart[item][4] * Number(counter);
+      document.getElementById("bookPrice " + item).innerHTML = this.bookPrice.toFixed(2) + "€";
+      //set total price
+      // this.totalPrice += this.cart[item][4];
+      // document.getElementById("totalPrice").innerHTML = this.totalPrice.toFixed(2) + "€";
     }
+    //if amount is not set in local storage, therefore is 1
+    else {
+      //set price for book
+      this.bookPrice = this.cart[item][4];
+      document.getElementById("bookPrice " + item).innerHTML = this.bookPrice.toFixed(2) + "€";
+      // localStorage.setItem('price' + item, JSON.stringify(this.bookPrice));
+      //set total price
+      // document.getElementById("totalPrice").innerHTML = this.totalPrice.toFixed(2) + "€";
+    }
+  }
+
+  calculatePrice() {
+    this.totalPrice = 0;
+    for (let i = 0; i < localStorage.length; i++) {
+      let key = localStorage.key(i);
+      if (key.slice(0, 5) === "price") {
+        this.totalPrice += Number(localStorage.getItem("price" + i));
+      }
+    }
+    document.getElementById("totalPrice").innerHTML = this.totalPrice.toFixed(2) + "€";
   }
 }
 

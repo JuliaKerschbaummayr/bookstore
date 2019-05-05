@@ -1,7 +1,10 @@
 <div class="content">
   <div class="header">Bestellung Nummer {{ order.id }}</div>
   <div class="user">User {{ order.user_id }}</div>
-  <!--<div class="status">Aktueller Status: {{ status.status }}</div>-->
+  <!--<div class="status">Aktueller Status: {{ order.statuses }}</div>-->
+  <div *ngFor="let s of order.statuses last as l" >
+    <span *ngIf="l">Aktueller Status: {{s.status}}</span>
+  </div>
   <div class="price">Gesamtpreis: {{ (order.price*1).toFixed(2) }}€</div>
   <div class="date">Bestelldatum: {{ order.orderDate | date:'dd.MM.yyyy' }}</div>
 </div>
