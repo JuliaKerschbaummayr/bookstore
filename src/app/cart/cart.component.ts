@@ -132,7 +132,7 @@ export class CartComponent implements OnInit {
               // let item = JSON.parse(this.cart[i]);
               this.cartItems.push({
                   book: this.cart[i],
-                  quantity: Number(localStorage.getItem('counter' + i)),
+                  amount: Number(localStorage.getItem('counter' + i)),
               });
           }
 
